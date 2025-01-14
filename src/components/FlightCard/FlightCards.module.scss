@@ -1,0 +1,89 @@
+.card {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(3, 1fr);
+	grid-template-areas:
+		'price none logo'
+		'infoThere timeThere transfersThere'
+		'infoBack timeBack transfersBack';
+	gap: 10px 20px;
+	border-radius: 5px;
+	box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+	background: #fff;
+	padding: 20px;
+	margin-bottom: 20px;
+	width: 100%;
+}
+
+.price {
+	color: rgb(33, 150, 243);
+	font-size: 24px;
+	font-weight: 600;
+	grid-area: price;
+}
+
+.logo {
+	grid-area: logo;
+	justify-self: end;
+}
+
+.infoThere {
+	grid-area: infoThere;
+}
+
+.timeThere {
+	grid-area: timeThere;
+}
+
+.transfersThere {
+	grid-area: transfersThere;
+}
+
+.infoBack {
+	grid-area: infoBack;
+}
+
+.timeBack {
+	grid-area: timeBack;
+}
+
+.transfersBack {
+	grid-area: transfersBack;
+}
+
+.top {
+	color: #a0b0b9;
+	font-size: 12px;
+	font-weight: 600;
+	text-transform: uppercase;
+}
+
+.bottom {
+	color: #4a4a4a;
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.notFound {
+	font-size: 20px;
+	text-align: center;
+	margin-bottom: 20px;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	color: rgb(0, 84, 152);
+}
+
+.loading,
+.error {
+	margin: 40px 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 18px;
+	color: rgb(0, 84, 152);
+}
+
+.error {
+	color: rgb(189, 0, 0);
+}

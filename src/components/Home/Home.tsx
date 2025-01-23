@@ -11,7 +11,7 @@ export const Home: React.FC = () => {
 		<>
 			<div className={styles.container}>
 				<header className={styles.header}>
-					<img src='src/assets/img/logo.svg' alt='Aviasales' />
+					<img src='img/logo.svg' alt='Aviasales' />
 				</header>
 				<section className={styles.content}>
 					<Transfers />

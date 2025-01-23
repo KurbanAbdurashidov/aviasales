@@ -8,6 +8,7 @@ export const Filters: React.FC = () => {
 	const selectedFilter = useSelector(
 		(state: RootState) => state.filters.selectedFilter
 	)
+	const { loading } = useSelector((state: RootState) => state.tickets)
 	const dispatch: AppDispatch = useDispatch()
 
 	const handleFilterChange = (filter: 'cheap' | 'fast' | 'optimal') => {
@@ -16,7 +17,11 @@ export const Filters: React.FC = () => {
 
 	return (
 		<>
-			<div className={styles.container}>
+			<div
+				className={cn(styles.container, {
+					[styles.hidden]: loading
+				})}
+			>
 				<button
 					className={cn(`${styles.first}`, {
 						[styles.active]: selectedFilter === 'cheap'

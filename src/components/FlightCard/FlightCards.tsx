@@ -1,15 +1,25 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import {
+	formatDuration,
+	formatFlightTime,
+	formatTransferString
+} from '../../helpers/helpers'
 import { AppDispatch, RootState } from '../../store/store'
 import { Ticket } from '../../store/tickets/tickets.slice'
 import { fetchTickets } from '../../store/tickets/tickets.thunk'
+import { MoreFlights } from '../MoreFlights/MoreFlights'
 import styles from './FlightCards.module.scss'
 
 type FlightCardsProps = {
 	currentIndex: number
+	setCurrentIndex: React.Dispatch<React.SetStateAction<number>>
 }
 
-export const FlightCards: React.FC<FlightCardsProps> = ({ currentIndex }) => {
+export const FlightCards: React.FC<FlightCardsProps> = ({
+	currentIndex,
+	setCurrentIndex
+}) => {
 	const dispatch: AppDispatch = useDispatch()
 	const { tickets, loading, error } = useSelector(
 		(state: RootState) => state.tickets
@@ -76,33 +86,8 @@ export const FlightCards: React.FC<FlightCardsProps> = ({ currentIndex }) => {
 		)
 	}
 
-	const formatDuration = (time: number): string => {
-		const hours = Math.floor(time / 60)
-		const minutes = time % 60
-		return `${hours}ч ${minutes}м`
-	}
-
-	const formatFlightTime = (date: string, duration: number): string => {
-		const departure = new Date(date)
-		const arrival = new Date(departure.getTime() + duration * 60 * 1000)
-
-		const formatTime = (time: Date): string =>
-			time.toLocaleTimeString('ru-RU', {
-				hour: '2-digit',
-				minute: '2-digit'
-			})
-
-		return `${formatTime(departure)} - ${formatTime(arrival)}`
-	}
-
-	const formatTransferString = (quentity: number): string => {
-		if (quentity === 1) return 'пересадка'
-		if (quentity === 2 || quentity === 3 || quentity === 4) return 'пересадки'
-		return 'пересадок'
-	}
-
 	return (
-		<>
+		<div className={styles.flightCards}>
 			{displayTickets.length === 0 ? (
 				<div className={styles.notFound}>
 					<h1>Рейсов, подходящих под заданные фильтры, не найдено</h1>
@@ -176,6 +161,9 @@ export const FlightCards: React.FC<FlightCardsProps> = ({ currentIndex }) => {
 					</div>
 				))
 			)}
-		</>
+			{displayTickets.length !== 0 && (
+				<MoreFlights setCurrentIndex={setCurrentIndex} />
+			)}
+		</div>
 	)
 }

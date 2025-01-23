@@ -9,11 +9,11 @@ export type TransferFilter = {
 }
 
 const initialState: TransferFilter = {
-	all: false,
-	noTransfers: false,
-	oneTransfer: false,
-	twoTransfers: false,
-	threeTransfers: false
+	all: true,
+	noTransfers: true,
+	oneTransfer: true,
+	twoTransfers: true,
+	threeTransfers: true
 }
 
 const transferSlice = createSlice({

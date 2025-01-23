@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
 	formatDuration,
@@ -28,6 +28,8 @@ export const FlightCards: React.FC<FlightCardsProps> = ({
 	const sortFilters = useSelector(
 		(state: RootState) => state.filters.selectedFilter
 	)
+
+	const [localLoading, setLocalLoading] = useState(false)
 
 	const filteredTickets = tickets.filter((ticket: Ticket) => {
 		const stopsA =
@@ -69,9 +71,17 @@ export const FlightCards: React.FC<FlightCardsProps> = ({
 		dispatch(fetchTickets())
 	}, [dispatch, currentIndex])
 
+	useEffect(() => {
+		if (!loading) {
+			setLocalLoading(true)
+			const timeout = setTimeout(() => setLocalLoading(false), 300)
+			return () => clearTimeout(timeout)
+		}
+	}, [loading, filters, sortFilters])
+
 	const displayTickets = sortedTickets.slice(0, currentIndex)
 
-	if (loading) {
+	if (loading || localLoading) {
 		return (
 			<div className={styles.loading}>
 				<h1>Загрузка...</h1>
